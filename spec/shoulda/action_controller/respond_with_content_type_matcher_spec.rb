@@ -21,6 +21,14 @@ describe Shoulda::Matchers::ActionController::RespondWithContentTypeMatcher do
     end
   end
 
+  context "a controller responding with content type :kml" do
+    let(:controller) { build_response { render :kml => { :user => "thoughtbot" }.to_kml } }
+
+    it "should accept responding with content type :kml" do
+      controller.should respond_with_content_type(:kml)
+    end
+  end
+
   it "should generate the correct test name" do
     respond_with_content_type(:xml).description.
       should == "respond with content type of application/xml"

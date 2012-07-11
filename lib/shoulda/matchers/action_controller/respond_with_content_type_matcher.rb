@@ -56,7 +56,9 @@ module Shoulda # :nodoc:
         end
 
         def response_content_type
-          @controller.response.content_type.to_s
+            @controller.response.header["Content-Type"]
+              .to_s
+              .sub(/; charset=utf-8/, '')
         end
 
         def look_up_by_extension(extension)
