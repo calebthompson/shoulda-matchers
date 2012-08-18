@@ -21,15 +21,20 @@ module Shoulda # :nodoc:
 
       class ValidatePresenceOfMatcher < ValidationMatcher # :nodoc:
 
+        def initialize(attribute)
+          super
+          @options = {}
+        end
+
         def with_message(message)
-          @expected_message = message if message
+          @options[:expected_message] = message if message
           self
         end
 
         def matches?(subject)
           super(subject)
-          @expected_message ||= :blank
-          disallows_value_of(blank_value, @expected_message)
+          @options[:expected_message] ||= :blank
+          disallows_value_of(blank_value, @options[:expected_message])
         end
 
         def description
